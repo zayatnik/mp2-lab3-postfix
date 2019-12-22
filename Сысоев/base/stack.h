@@ -11,7 +11,6 @@ class stack {
 	int r, rr;
 	t*cont;
 public:
-	stack();
 	stack(const stack& s);
 	stack(const int g);
 	~stack();
@@ -25,21 +24,10 @@ public:
 };
 
 template <class t>
-stack<t>::stack() {
+stack<t>::stack(const int g = 8) {
 	r = 0;
-	rr = 8;
-	cont = new t[rr];
-	for (int i = 0; i < rr; i++)
-		cont[i] = 0;
-}
-
-template <class t>
-stack<t>::stack(const int g) {
-	r = g;
 	rr = g;
 	cont = new t[rr];
-	for (int i = 0; i < rr; i++)
-		cont[i] = 0;
 }
 
 template<class t>
@@ -50,8 +38,6 @@ stack<t>::stack(const stack<t>& s) {
 	cont = new t[rr];
 	for (i = 0; i < r; i++)
 		cont[i] = s.cont[i];
-	for (i = r; i < rr; i++)
-		cont[i] = 0;
 }
 
 template<class t>
@@ -97,30 +83,14 @@ bool stack<t>::empty() {
 
 template<class t>
 t stack<t>::pop() {
+	t tmp;
 	if (!(this->empty())) {
-		if ((r = rr / 3) && (r > 8)) {
-			int i;
-			rr = r * 2;
-			t* b = new t[rr];
-			for (i = 0; i < r; i++)
-				b[i] = cont[i];
-			delete[] cont;
-			cont = b;
-			for (i = r; i < rr; i++)
-				cont[i] = 0;
-			delete[] b;
-			cont[r - 1] = 0;
-			r--;
-		}
-		else {
-			cont[r - 1] = 0;
-			r--;
-
-		}
+		tmp = cont[r - 1];
+		r--;
 	}
 	else
 		throw "not correct";
-	return cont[r - 1];
+	return tmp;
 }
 
 template<class t>

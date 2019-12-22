@@ -6,24 +6,27 @@
 
 using namespace std;
 
-class TPostfix{
+class TPostfix {
 	string infix;
 	string postfix;
 	bool IsOperator(char op);
 	int Priority(char a, char b);
 	double Operation(double right, double left, char c);
 public:
-	TPostfix(string str = "a+b"){
+	TPostfix() {}
+	TPostfix(string str) {
 		infix = str;
+		if (!CheckInfix())
+			throw "Incorrect infix";
 	}
-	TPostfix(TPostfix &p){
+	TPostfix(TPostfix &p) {
 		infix = p.infix;
 		postfix = p.postfix;
 	}
-	string GetInfix(){
+	string GetInfix() {
 		return infix;
 	}
-	string GetPostfix(){
+	string GetPostfix() {
 		return postfix;
 	}
 	bool CheckInfix();
